@@ -125,7 +125,9 @@ const styles = StyleSheet.create({
   slogan: {
     fontSize: 44,
     color: "white",
-    fontFamily: "OleoScript", // Asegúrate de que la fuente esté cargada en tu proyecto
+    fontFamily: "Montserrat",
+    fontWeight: '700',
+    textAlign: 'justify', 
     textAlign: "center",
     marginHorizontal: 20,
   },
