@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   artistName: {
     fontSize: 24,
-    fontFamily: 'OleoScript',
+    fontFamily: 'Montserrat',
     marginBottom: 8,
     marginTop: 15,
     color: 'red',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'red',
     marginBottom: 8,
-    fontFamily: 'OleoScript',
+    fontFamily: 'Montserrat',
   },
   songItem: {
     paddingVertical: 8,

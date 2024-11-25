@@ -19,6 +19,12 @@ import SplashScreen from "./screen/SplashScreen";
 import DatosHistoricosScreen from "./screen/DatosHistoricosScreen";
 import GetNotificaciones from "./screen/getNotificacionScreen"; // Asegúrate de importar GetNotificaciones correctamente
 import DetailScreen from "./screen/DetailScreen";
+import CategoriesScreen from "./screen/CategoriasScreen";
+import CancionesCategoria from "./screen/CancionesCategoria"; // Importa la nueva pantalla de canciones por categoría
+import Creditos from "./screen/CreditosScreen";
+import NotificacionDetalle from "./screen/NotificationsDetalle"
+import ForgotPasswordScreen from "./screen/ForgotPasswordScreen";
+import UpdateProfileScreen from "./screen/UpdateProfileScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -49,6 +55,9 @@ function MainTabs() {
               break;
             case 'Configuracion':
               iconName = focused ? 'cog' : 'cog-outline';
+              break;
+            case 'Categorias':
+              iconName = focused ? 'view-list' : 'view-list-outline';
               break;
             default:
               iconName = focused ? 'home' : 'home-outline';
@@ -121,12 +130,13 @@ function MainTabs() {
           />
           <Tab.Screen
             name="Canciones"
-            component={CancionesScreen}
+            component={CancionesScreen} // Mantén la pantalla de canciones sin filtrar
             options={{
               tabBarShowLabel: false,
               headerTitle: "Canciones",
               headerTitleStyle: {
-                fontFamily: "OleoScript",
+                fontFamily: "Montserrat",
+                fontWeight: 700,
                 fontSize: 24,
                 color: "#D4281C",
               },
@@ -142,7 +152,8 @@ function MainTabs() {
               tabBarShowLabel: false,
               headerTitle: "Artistas",
               headerTitleStyle: {
-                fontFamily: "OleoScript",
+                fontFamily: "Montserrat",
+                fontWeight: 700,
                 fontSize: 24,
                 color: "#D4281C",
               },
@@ -158,7 +169,25 @@ function MainTabs() {
               tabBarShowLabel: false,
               headerTitle: "Dato Curioso",
               headerTitleStyle: {
-                fontFamily: "OleoScript",
+                fontFamily: "Montserrat",
+                fontSize: 24,
+                fontWeight: 700,
+                color: "#D4281C",
+              },
+              headerStyle: {
+                backgroundColor: "white",
+              },
+            }}
+          />
+           <Tab.Screen
+            name="Categorias"
+            component={CategoriesScreen}
+            options={{
+              tabBarShowLabel: false,
+              headerTitle: "Géneros",
+              headerTitleStyle: {
+                fontFamily: "Montserrat",
+                fontWeight: 700,
                 fontSize: 24,
                 color: "#D4281C",
               },
@@ -174,7 +203,8 @@ function MainTabs() {
               tabBarShowLabel: false,
               headerTitle: "Ajustes",
               headerTitleStyle: {
-                fontFamily: "OleoScript",
+                fontFamily: "Montserrat",
+                fontWeight: 700,
                 fontSize: 24,
                 color: "#D4281C",
               },
@@ -183,6 +213,7 @@ function MainTabs() {
               },
             }}
           />
+         
         </>
       ) : (
         <>
@@ -230,7 +261,8 @@ function AppNavigator() {
           options={{
             headerTitle: "Biografía",
             headerTitleStyle: {
-              fontFamily: "OleoScript",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
               fontSize: 24,
               color: "#D4281C",
             },
@@ -245,7 +277,8 @@ function AppNavigator() {
           options={{
             headerTitle: "Notificaciones",
             headerTitleStyle: {
-              fontFamily: "OleoScript",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
               fontSize: 24,
               color: "#D4281C",
             },
@@ -260,9 +293,10 @@ function AppNavigator() {
           options={{
             headerTitle: "Reproductor de Videos",
             headerTitleStyle: {
-              fontFamily: "OleoScript",
+              fontFamily: "Montserrat",
               fontSize: 24,
               color: "#D4281C",
+              fontWeight: 700,
             },
             headerStyle: {
               backgroundColor: "white",
@@ -275,7 +309,8 @@ function AppNavigator() {
           options={{
             headerTitle: "Dato Curioso",
             headerTitleStyle: {
-              fontFamily: "OleoScript",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
               fontSize: 24,
               color: "#D4281C",
             },
@@ -290,7 +325,8 @@ function AppNavigator() {
           options={{
             headerTitle: "Notificaciones",
             headerTitleStyle: {
-              fontFamily: "OleoScript",
+              fontFamily: "Montserrat",
+              fontWeight: 700,
               fontSize: 24,
               color: "#D4281C",
             },
@@ -298,6 +334,91 @@ function AppNavigator() {
               backgroundColor: "white",
             },
           }}
+        />
+        <Stack.Screen
+          name="CancionesCategoria"
+          component={CancionesCategoria} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Canciones por Categoría",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
+        />
+        <Stack.Screen
+          name="Creditos"
+          component={Creditos} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Creditos",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
+        />
+                <Stack.Screen
+          name="NotificacionDetalle"
+          component={NotificacionDetalle} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Detalle Notificación",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
+        />
+         <Stack.Screen
+          name="ForgotPasswordScreen"
+          component={ForgotPasswordScreen} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Recuperar Contraseña",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
+        />
+         <Stack.Screen
+          name="UpdateProfileScreen"
+          component={UpdateProfileScreen} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Actualizar Datos",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
         />
       </Stack.Navigator>
     </NavigationContainer>

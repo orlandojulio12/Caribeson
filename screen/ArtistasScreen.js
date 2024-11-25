@@ -16,7 +16,7 @@ const ArtistsScreen = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await fetch('http://10.1.80.148/CONEXION/getArtistas.php');
+        const response = await fetch('https://www.caribeson.com/CONEXION/getArtistas.php');
         if (!response.ok) {
           throw new Error('Error al obtener los datos de artistas');
         }

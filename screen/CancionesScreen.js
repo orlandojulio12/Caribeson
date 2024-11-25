@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Banner from './banner';
 
 const MusicItem = ({ title, artist, imageSource, onPress }) => (
@@ -12,11 +12,6 @@ const MusicItem = ({ title, artist, imageSource, onPress }) => (
         <Text style={styles.musicTitle}>{title}</Text>
         <Text style={styles.musicArtist}>{artist}</Text>
       </View>
-      <View style={styles.musicActions}>
-        <TouchableOpacity>
-          <Text style={styles.musicActionText}>....</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   </TouchableOpacity>
 );
@@ -25,10 +20,12 @@ const MusicPlayer = () => {
   const [songs, setSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [songsPerPage] = useState(10); // Number of songs per page
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch('http://10.1.80.148/CONEXION/getCanciones.php')
+    fetch('https://www.caribeson.com/CONEXION/getCanciones.php')
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -41,20 +38,28 @@ const MusicPlayer = () => {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
-    if (query === '') {
-      setFilteredSongs(songs);
-    } else {
-      const filtered = songs.filter(
-        (song) =>
-          song.title.toLowerCase().includes(query.toLowerCase()) ||
-          song.artist.toLowerCase().includes(query.toLowerCase())
-      );
-      setFilteredSongs(filtered);
-    }
+    const filtered = query === '' ? songs : songs.filter(
+      (song) => song.title.toLowerCase().includes(query.toLowerCase()) ||
+                song.artist.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredSongs(filtered);
   };
 
   const handlePress = (song) => {
     navigation.navigate('VideoFromYouTube', { youtubeLink: song.link, title: song.title });
+  };
+
+  const numPages = Math.ceil(filteredSongs.length / songsPerPage);
+  const indexOfLastSong = currentPage * songsPerPage;
+  const indexOfFirstSong = indexOfLastSong - songsPerPage;
+  const currentSongs = filteredSongs.slice(indexOfFirstSong, indexOfLastSong);
+
+  const goToPrevPage = () => {
+    setCurrentPage(currentPage > 1 ? currentPage - 1 : 1);
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage(currentPage < numPages ? currentPage + 1 : numPages);
   };
 
   return (
@@ -63,9 +68,7 @@ const MusicPlayer = () => {
       contentContainerStyle={styles.contentContainer}
       showsVerticalScrollIndicator={false}
     >
-      <View>
-        <Banner />
-      </View>
+      <Banner />
       <View style={styles.searchContainer}>
         <MaterialCommunityIcons name="magnify" size={25} color="gray" />
         <TextInput
@@ -75,7 +78,7 @@ const MusicPlayer = () => {
           onChangeText={handleSearch}
         />
       </View>
-      {filteredSongs.map((item) => (
+      {currentSongs.map((item) => (
         <MusicItem 
           key={item.id.toString()} 
           title={item.title} 
@@ -84,6 +87,22 @@ const MusicPlayer = () => {
           onPress={() => handlePress(item)}
         />
       ))}
+      <View style={styles.paginationContainer}>
+        <TouchableOpacity 
+          style={[styles.paginationButton, { opacity: currentPage === 1 ? 0.5 : 1 }]}
+          onPress={goToPrevPage}
+          disabled={currentPage === 1}
+        >
+          <MaterialCommunityIcons name="chevron-left" size={30} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={[styles.paginationButton, { opacity: currentPage === numPages ? 0.5 : 1 }]}
+          onPress={goToNextPage}
+          disabled={currentPage === numPages}
+        >
+          <MaterialCommunityIcons name="chevron-right" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -133,11 +152,13 @@ const styles = StyleSheet.create({
   musicArtist: {
     fontSize: 14,
   },
-  musicActions: {
-    marginLeft: 'auto',
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
   },
-  musicActionText: {
-    fontSize: 18,
+  paginationButton: {
+    padding: 10,
   },
 });
 

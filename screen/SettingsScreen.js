@@ -31,7 +31,7 @@ const SettingsScreen = () => {
       <Banner />
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>PERMITIR QUE CARIBESON ACCEDA A</Text>
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Creditos')}>
           <Text style={styles.itemText}>Creditos</Text>
           <Text style={styles.itemSubText}></Text>
         </TouchableOpacity>
@@ -39,6 +39,10 @@ const SettingsScreen = () => {
         <Text style={styles.itemText}>Notificaciones</Text>
         <Text style={styles.itemSubText}>On/Off</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('UpdateProfileScreen')}>
+          <Text style={styles.itemText}>Actualizar Datos</Text>
+          <Text style={styles.itemSubText}></Text>
+        </TouchableOpacity>
       </View>
     
       <TouchableOpacity style={styles.button} onPress={handleLogout}>

@@ -1,18 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated, Image } from 'react-native';
+import { View, Text, StyleSheet, Animated, Image, ImageBackground } from 'react-native';
 
 const SplashScreen = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1,
-        duration: 2000,
-        useNativeDriver: true,
-      }
-    ).start(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start(() => {
       setTimeout(() => {
         navigation.replace('MainTabs');
       }, 1000);
@@ -20,63 +17,38 @@ const SplashScreen = ({ navigation }) => {
   }, [fadeAnim]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.rectangle} />
-      <View style={styles.ellipse4} />
-      <View style={styles.ellipse5} />
+    <ImageBackground
+      source={require('../assets/fondo.png')}
+      style={styles.background}
+    >
       <Animated.View style={{ ...styles.logoContainer, opacity: fadeAnim }}>
-        <Image source={require('../assets/logo_fin.png')} style={styles.logo} />
-        <Text style={styles.logoText}>Conoce la historia detras de cada nota.</Text>
+        <Image source={require('../assets/logocaribe.png')} style={styles.logo} />
+        <Text style={styles.logoText}>Conoce la historia detrás de cada nota.</Text>
       </Animated.View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    position: 'relative',
+    resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  rectangle: {
-    position: 'absolute',
-    width: 430,
-    height: 932,
-    left: 0,
-    top: 0,
-    backgroundColor: '#F84343',
-  },
-  ellipse4: {
-    position: 'absolute',
-    width: 320,
-    height: 320,
-    left: 228,
-    top: -130,
-    backgroundColor: '#FA5353',
-    borderRadius: 160,
-  },
-  ellipse5: {
-    position: 'absolute',
-    width: 320,
-    height: 320,
-    left: -92,
-    top: 753,
-    backgroundColor: '#FA5353',
-    borderRadius: 160,
   },
   logoContainer: {
     alignItems: 'center',
   },
   logo: {
-    width: 150,
-    height: 200,
+    width: 280,
+    height: 210,
   },
   logoText: {
     marginTop: 15,
     fontSize: 44,
+    fontWeight: '700',
     color: 'white',
-    fontFamily: 'OleoScript', // Asegúrate de que la fuente esté cargada en tu proyecto
+    fontFamily: 'Montserrat',
     textAlign: 'center',
   },
 });

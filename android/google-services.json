@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "525179511932",
+    "project_id": "caribeson-music",
+    "storage_bucket": "caribeson-music.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525179511932:android:ab533de9e9f88be57bd5f9",
+        "android_client_info": {
+          "package_name": "com.anonymous.MusicJr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn1xpjWuHsIiKUQrdABndMRs9TG0VSovQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525179511932:android:f1cc66374b4a59657bd5f9",
+        "android_client_info": {
+          "package_name": "com.orlando76.Caribeson"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn1xpjWuHsIiKUQrdABndMRs9TG0VSovQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

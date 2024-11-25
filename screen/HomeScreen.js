@@ -10,41 +10,51 @@ import {
   Platform,
   Dimensions,
   ImageBackground,
+  Modal,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { useNavigation } from "@react-navigation/native";
-import Banner from './banner';
+import Banner from "./banner";
+
 const { width: viewportWidth } = Dimensions.get("window");
 
 const HomeScreen = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [artists, setArtists] = useState([]); // Estado para almacenar los artistas obtenidos
+  const [notificationToday, setNotificationToday] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const navigation = useNavigation();
 
   useEffect(() => {
-    // Función para obtener los datos de artistas desde el servidor
-    const fetchArtists = async () => {
+    const fetchNotification = async () => {
       try {
         const response = await fetch(
-          "http://10.1.80.148/CONEXION/getArtistas.php"
+          "https://www.caribeson.com/CONEXION/getNotificacion.php"
         );
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos de artistas");
-        }
         const data = await response.json();
-        setArtists(data);
+
+        if (Array.isArray(data)) {
+          const today = new Date().toISOString().split("T")[0];
+          const todayNotification = data.find((notification) =>
+            notification.fecha.startsWith(today)
+          );
+
+          if (todayNotification) {
+            setNotificationToday(todayNotification);
+            setShowModal(true);
+          }
+        }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Error fetching notification:", error);
       }
     };
 
-    fetchArtists();
+    fetchNotification();
   }, []);
 
-  const filteredArtists = artists.filter((artist) =>
-    artist.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const truncatedDescription =
+    notificationToday?.descripcion.length > 100
+      ? `${notificationToday.descripcion.substring(0, 100)}...`
+      : notificationToday?.descripcion;
 
   return (
     <KeyboardAvoidingView
@@ -53,18 +63,15 @@ const HomeScreen = () => {
       keyboardVerticalOffset={Platform.select({ ios: 0, android: 80 })}
     >
       <StatusBar barStyle="dark-content" />
+
       <ScrollView style={styles.scrollView}>
-        {/* Banner estático */}
         <Banner />
 
-        {/* Título Datos Históricos */}
         <View style={styles.historicalDataContainer}>
           <Text style={styles.historicalDataTitle}>Descubre Aquí</Text>
         </View>
 
-        {/* Contenedores grandes con iconos */}
         <View style={styles.bigImagesContainer}>
-          
           <View style={styles.row}>
             <TouchableOpacity
               style={styles.bigImageContainer}
@@ -76,29 +83,37 @@ const HomeScreen = () => {
               >
                 <Text style={styles.bigImageTitle}>Artistas</Text>
                 <View style={styles.iconContainer}>
-                <Image style={styles.imagen} source={require("../assets/1a.png")} ></Image>
+                  <Image
+                    style={styles.imagen}
+                    source={require("../assets/1a.png")}
+                  />
                 </View>
               </ImageBackground>
-                <Text style={styles.descriptionartistas}>
-                Informacion de todos los Artistas
+              <Text style={styles.descriptionartistas}>
+                Sumérgete en la trayectoria artística de los y las cultoras de
+                la música del Caribe colombiano.
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.bigImageContainer}
-              onPress={() => navigation.navigate("Artistas")}
+              onPress={() => navigation.navigate("Categorias")}
             >
               <ImageBackground
                 source={require("../assets/portada_final.png")}
                 style={styles.backgroundImage}
               >
-                <Text style={styles.bigImageTitle}>Categorias</Text>
+                <Text style={styles.bigImageTitle}>Género/Estilo</Text>
                 <View style={styles.iconContainer}>
-                <Image style={styles.imagen} source={require("../assets/4a.png")} ></Image>
+                  <Image
+                    style={styles.imagen}
+                    source={require("../assets/4a.png")}
+                  />
                 </View>
               </ImageBackground>
               <Text style={styles.descriptionejemplo}>
-                Datos Curiosos de los Artistas
+                Tu encuentro con las Cumbias, Gaitas, Porros, Música de cámara,
+                Sinfónica, etc.
               </Text>
             </TouchableOpacity>
           </View>
@@ -113,32 +128,84 @@ const HomeScreen = () => {
               >
                 <Text style={styles.bigImageTitle}>Canciones</Text>
                 <View style={styles.iconContainer}>
-                <Image style={styles.imagen} source={require("../assets/3a.png")} ></Image>
+                  <Image
+                    style={styles.imagen}
+                    source={require("../assets/3a.png")}
+                  />
                 </View>
               </ImageBackground>
-              <Text style={styles.descriptioncaniones
-              }>
-              Canciones Populares de Artistas
+              <Text style={styles.descriptioncaniones}>
+                Tu mejor opción para escuchar temas musicales de la costa norte.
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.bigImageContainer}  onPress={() => navigation.navigate("DatoCurioso")}>
+            <TouchableOpacity
+              style={styles.bigImageContainer}
+              onPress={() => navigation.navigate("DatoCurioso")}
+            >
               <ImageBackground
                 source={require("../assets/portada_final.png")}
                 style={styles.backgroundImage}
               >
-                <Text style={styles.bigImageTitle}>Dato Curioso</Text>
+                <Text style={styles.bigImageTitle}>¿Sabias Que?</Text>
                 <View style={styles.iconContainer}>
-                <Image style={styles.imagen} source={require("../assets/2a.png")} ></Image>
+                  <Image
+                    style={styles.imagen}
+                    source={require("../assets/2a.png")}
+                  />
                 </View>
               </ImageBackground>
               <Text style={styles.descriptiondatos}>
-                Datos Curiosos de los Artistas
+                Conoce las anécdotas y curiosidades del mundo musical costeño.
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
+
+      {/* Modal para mostrar la notificación del día */}
+
+      <Modal
+        visible={showModal}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setShowModal(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            {notificationToday && (
+              <>
+                <Text style={styles.modalTitle}>
+                  {notificationToday.titulo}
+                </Text>
+                <Text style={styles.modalDescription}>
+                  {truncatedDescription}
+                </Text>
+
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                      setShowModal(false);
+                      navigation.navigate("NotificacionDetalle", {
+                        item: notificationToday,
+                      });
+                    }}
+                  >
+                    <Text style={styles.buttonText}>Ver más</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.button2}
+                    onPress={() => setShowModal(false)}
+                  >
+                    <Text style={styles.buttonText}>Cerrar</Text>
+                  </TouchableOpacity>
+                </View>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 };
@@ -148,7 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flex: 1,
   },
-  imagen:{
+  imagen: {
     width: "100%",
     height: "100%",
   },
@@ -158,21 +225,21 @@ const styles = StyleSheet.create({
   descriptiondatos: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: 9,
-    fontSize: 16,
+    padding: "10%",
+    fontSize: 14,
     fontFamily: "Montserrat",
-    fontWeight: '700',
+    fontWeight: "700",
     textAlign: "center",
-    borderBottomLeftRadius: 12,
+    borderBottomLeftRadius: 15,
     borderBottomRightRadius: 10,
   },
   descriptionartistas: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: 10, 
+    padding: "8%",
     fontSize: 16,
     fontFamily: "Montserrat",
-    fontWeight: '700',
+    fontWeight: "700",
     textAlign: "center",
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 10,
@@ -180,10 +247,10 @@ const styles = StyleSheet.create({
   descriptionejemplo: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: 9,
+    padding: "8%",
     fontSize: 16,
     fontFamily: "Montserrat",
-    fontWeight: '700',
+    fontWeight: "700",
     textAlign: "center",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -191,15 +258,14 @@ const styles = StyleSheet.create({
   descriptioncaniones: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: 10,
+    padding: "8%",
     fontSize: 16,
     fontFamily: "Montserrat",
-    fontWeight: '700',
+    fontWeight: "700",
     textAlign: "center",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },
-
   historicalDataContainer: {
     alignItems: "center",
     marginTop: -10,
@@ -254,11 +320,63 @@ const styles = StyleSheet.create({
   bigImageTitle: {
     fontSize: 18,
     fontFamily: "Montserrat",
-    fontWeight: '700',
+    fontWeight: "700",
     marginTop: 15,
     color: "#0D2A67",
     marginBottom: 9,
     marginRight: 10,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  notificationTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+  modalDescription: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  button: {
+    flex: 1,
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: "#0D2A67",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  button2: {
+    flex: 1,
+    padding: 10,
+    marginHorizontal: 5,
+    backgroundColor: "red",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

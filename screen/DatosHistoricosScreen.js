@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,22 +8,24 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Banner from './banner';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import Banner from "./banner";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const { width: viewportWidth } = Dimensions.get('window');
+const { width: viewportWidth } = Dimensions.get("window");
 
 const HomeScreen = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [dataCuriosa, setDataCuriosa] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://10.1.80.148/CONEXION/getDatoCurioso.php');
+        const response = await fetch(
+          "http://10.1.80.132/CONEXION/getDatoCurioso.php"
+        );
         const result = await response.json();
         setDataCuriosa(result);
       } catch (error) {
@@ -40,7 +42,12 @@ const HomeScreen = () => {
         <Banner />
       </View>
       <View style={styles.searchContainer}>
-        <MaterialCommunityIcons name="magnify" size={25} color="gray" style={styles.searchIcon} />
+        <MaterialCommunityIcons
+          name="magnify"
+          size={25}
+          color="gray"
+          style={styles.searchIcon}
+        />
         <TextInput
           style={styles.searchBar}
           placeholder="Buscar Dato Curioso"
@@ -55,13 +62,10 @@ const HomeScreen = () => {
             styles.card,
             index % 2 === 0 ? styles.cardLeft : styles.cardRight,
           ]}
-          onPress={() => navigation.navigate('DetailScreen', { item })}
+          onPress={() => navigation.navigate("DetailScreen", { item })}
         >
           {index % 2 === 0 && (
-            <Image
-              source={{ uri: item.foto }}
-              style={styles.image}
-            />
+            <Image source={{ uri: item.foto }} style={styles.image} />
           )}
           <View style={styles.textContainer}>
             <Text style={styles.title}>{item.titulo}</Text>
@@ -70,16 +74,14 @@ const HomeScreen = () => {
                 ? `${item.dato_curioso.substring(0, 100)}...`
                 : item.dato_curioso}
             </Text>
+
             {item.dato_curioso.length > 100 && (
               <Text style={styles.viewMore}>Ver más</Text>
             )}
             <Text style={styles.date}>{item.fecha}</Text>
           </View>
           {index % 2 !== 0 && (
-            <Image
-              source={{ uri: item.foto }}
-              style={styles.image}
-            />
+            <Image source={{ uri: item.foto }} style={styles.image} />
           )}
         </TouchableOpacity>
       ))}
@@ -90,18 +92,18 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 10,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
   },
   searchIcon: {
     marginRight: 10,
@@ -112,12 +114,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   card: {
-    flexDirection: 'row',
+    flexDirection: "row",
     borderRadius: 10,
     margin: 10,
     padding: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -125,42 +127,42 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    backgroundColor: 'white', // Color de fondo eliminado
+    backgroundColor: "white", // Color de fondo eliminado
   },
   cardLeft: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
   cardRight: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
   },
   image: {
     width: 120,
-    height: 120,
+    height: 170,
     borderRadius: 10,
     marginRight: 10, // Espacio entre la imagen y el texto
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     marginLeft: 10, // Espacio entre la imagen y el texto
   },
   title: {
-    color: '#0D2A67',
-    fontWeight: 'bold',
+    color: "#0D2A67",
+    fontWeight: "bold",
     marginBottom: 5,
     fontSize: 18,
   },
   description: {
-    color: '#000',
+    color: "#000",
     marginBottom: 5,
   },
   viewMore: {
-    color: '#0D2A67',
+    color: "#0D2A67",
     marginTop: 5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   date: {
-    color: '#000',
+    color: "#000",
   },
 });
 

@@ -13,11 +13,13 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from './../AuthContext';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const RegisterScreen = () => {
   const [username, setUsername] = useState('');
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para alternar visibilidad de contraseña
   const navigation = useNavigation();
   const { login } = useContext(AuthContext);
 
@@ -43,7 +45,7 @@ const RegisterScreen = () => {
     }
 
     try {
-      const response = await fetch('http://10.1.80.148/CONEXION/register.php', {
+      const response = await fetch('https://www.caribeson.com/CONEXION/register.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,11 +66,11 @@ const RegisterScreen = () => {
 
       if (data.success) {
         Alert.alert('Éxito', 'Registro exitoso');
-        login(data.token); // Almacenar el token de usuario y actualizar el estado de autenticación
+        login(data.token);
         navigation.reset({
           index: 0,
           routes: [{ name: 'MainTabs' }],
-        }); // Reiniciar la navegación y navegar a las pestañas principales
+        });
       } else {
         Alert.alert('Error', data.message);
       }
@@ -83,7 +85,7 @@ const RegisterScreen = () => {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <ImageBackground source={require('./../assets/p2.webp')} style={styles.background}>
+      <ImageBackground source={require('./../assets/fondo.png')} style={styles.background}>
         <View style={styles.overlay}>
           <View style={styles.innerContainer}>
             <Image source={require("./../assets/logocaribe.png")} style={styles.logo} />
@@ -100,13 +102,25 @@ const RegisterScreen = () => {
               placeholder="Correo Electrónico"
               keyboardType="email-address"
             />
-            <TextInput
-              style={styles.input}
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Contraseña"
-              secureTextEntry
-            />
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={styles.inputPassword}
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Contraseña"
+                secureTextEntry={!showPassword} // Alterna visibilidad de contraseña
+              />
+              <TouchableOpacity
+                style={styles.showPasswordButton}
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Ionicons
+                  name={showPassword ? "eye" : "eye-off"}
+                  size={24}
+                  color="gray"
+                />
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity style={styles.botonRegistrar} onPress={handleRegister}>
               <Text style={{ color: 'white', fontWeight: 'bold' }}>Registrar</Text>
             </TouchableOpacity>
@@ -123,6 +137,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
   background: {
     flex: 1,
     resizeMode: 'cover',
@@ -131,10 +149,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 250,
     height: 250,
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(13, 42, 103, 0.6)',
   },
   innerContainer: {
     flex: 1,
@@ -152,6 +166,25 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: '#ffffffcc',
     paddingStart: 20,
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "80%",
+    height: 50,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 20,
+    marginTop: 20,
+    backgroundColor: "#ffffffcc",
+  },
+  inputPassword: {
+    flex: 1,
+    paddingHorizontal: 10,
+    height: "100%",
+  },
+  showPasswordButton: {
+    paddingHorizontal: 10,
   },
   botonRegistrar: {
     width: '80%',
