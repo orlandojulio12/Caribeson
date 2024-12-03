@@ -10,6 +10,7 @@ const NotificacionDetalle = ({ route }) => {
         <Image source={{ uri: item.foto }} style={styles.image} />
       )}
       <View style={styles.textContainer}>
+        <Text style={styles.date}>Fuente:  {item.fuente_foto}</Text>
         <Text style={styles.date}>{item.fecha}</Text>
         <Text style={styles.title}>{item.titulo}</Text>
         <Text style={styles.description}>{item.descripcion}</Text>

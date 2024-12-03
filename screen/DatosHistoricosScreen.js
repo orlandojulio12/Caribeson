@@ -24,7 +24,7 @@ const HomeScreen = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://10.1.80.132/CONEXION/getDatoCurioso.php"
+          "http://192.168.1.119/CONEXION/getDatoCurioso.php"
         );
         const result = await response.json();
         setDataCuriosa(result);

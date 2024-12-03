@@ -17,7 +17,7 @@ const Banner = () => {
 const styles = StyleSheet.create({
   bannerContainer: {
     width: viewportWidth,
-    height: 170,
+    height: 160,
     marginBottom: 20,
   },
   bannerImage: {

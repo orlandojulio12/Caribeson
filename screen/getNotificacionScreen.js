@@ -14,10 +14,6 @@ const NotificationItem = ({ title, description, imageSource, date, onPress }) =>
       <Image source={{ uri: imageSource }} style={styles.notificationImage} />
       <View style={styles.notificationInfo}>
         <Text style={styles.notificationTitle}>{title}</Text>
-        <Text style={styles.notificationDescription}>{truncatedDescription}</Text>
-        <TouchableOpacity onPress={onPress}>
-          <Text style={styles.viewMoreText}>Ver más</Text>
-        </TouchableOpacity>
         <Text style={styles.notificationDate}>{date}</Text>
       </View>
     </TouchableOpacity>
@@ -99,14 +95,14 @@ const styles = StyleSheet.create({
   },
   notificationItem: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start', // Cambiado de 'center' a 'flex-start'
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#333',
   },
   notificationImage: {
-    width: '40%',
-    height: '100%',
+    width: 100, // Ancho fijo en píxeles
+    height: 100, // Alto fijo en píxeles
     borderRadius: 8,
   },
   notificationInfo: {

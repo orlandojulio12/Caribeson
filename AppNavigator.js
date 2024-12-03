@@ -25,6 +25,7 @@ import Creditos from "./screen/CreditosScreen";
 import NotificacionDetalle from "./screen/NotificationsDetalle"
 import ForgotPasswordScreen from "./screen/ForgotPasswordScreen";
 import UpdateProfileScreen from "./screen/UpdateProfileScreen";
+import ArtistItem from "./screen/ArtistItem";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -420,6 +421,24 @@ function AppNavigator() {
           }}
           
         />
+        <Stack.Screen
+          name="ArtistItem"
+          component={ArtistItem} // Añade la nueva pantalla aquí
+          options={{
+            headerTitle: "Artistas",
+            headerTitleStyle: {
+              fontFamily: "Montserrat",
+              fontWeight: 700,
+              fontSize: 24,
+              color: "#D4281C",
+            },
+            headerStyle: {
+              backgroundColor: "white",
+            },
+          }}
+          
+        />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

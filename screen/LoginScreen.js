@@ -38,7 +38,7 @@ export default function LoginScreen() {
   
     try {
       const response = await axios.post(
-        "http://192.168.128.85/CONEXION/login.php",
+        "http://192.168.1.119/CONEXION/login.php",
         {
           email: email,
           password: password,
@@ -51,7 +51,7 @@ export default function LoginScreen() {
       if (response.status === 200 && response.data.success) {
         const userId = response.data.userId;
         await login("user_token", userId); // Pasa userId a la función login
-        navigation.navigate("Caribeson");
+        navigation.navigate("MainTabs");
       } else {
         console.log("esto2", response.data);
         Alert.alert("Error", "Credenciales Incorrectas");

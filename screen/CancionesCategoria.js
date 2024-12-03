@@ -35,7 +35,7 @@ const CancionesCategoria = () => {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const url = `http://10.1.80.243/CONEXION/getCancionesCategoria.php?categoria=${categoryId}`;
+        const url = `https://caribeson.com/CONEXION/getCancionesCategoria.php?categoria=${categoryId}`;
         const response = await fetch(url);
         const data = await response.json();
         if (Array.isArray(data)) {

@@ -90,8 +90,7 @@ const HomeScreen = () => {
                 </View>
               </ImageBackground>
               <Text style={styles.descriptionartistas}>
-                Sumérgete en la trayectoria artística de los y las cultoras de
-                la música del Caribe colombiano.
+                las trayectorias de los Artistas
               </Text>
             </TouchableOpacity>
 
@@ -112,8 +111,7 @@ const HomeScreen = () => {
                 </View>
               </ImageBackground>
               <Text style={styles.descriptionejemplo}>
-                Tu encuentro con las Cumbias, Gaitas, Porros, Música de cámara,
-                Sinfónica, etc.
+              Cumbias, Gaitas, Porros, etc.
               </Text>
             </TouchableOpacity>
           </View>
@@ -135,7 +133,7 @@ const HomeScreen = () => {
                 </View>
               </ImageBackground>
               <Text style={styles.descriptioncaniones}>
-                Tu mejor opción para escuchar temas musicales de la costa norte.
+                Temas musicales de la costa norte.
               </Text>
             </TouchableOpacity>
 
@@ -156,7 +154,7 @@ const HomeScreen = () => {
                 </View>
               </ImageBackground>
               <Text style={styles.descriptiondatos}>
-                Conoce las anécdotas y curiosidades del mundo musical costeño.
+                Conoce las anécdotas y curiosidades
               </Text>
             </TouchableOpacity>
           </View>
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
   descriptionartistas: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: "8%",
+    padding: "12%",
     fontSize: 16,
     fontFamily: "Montserrat",
     fontWeight: "700",
@@ -247,7 +245,7 @@ const styles = StyleSheet.create({
   descriptionejemplo: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: "8%",
+    padding: "12%",
     fontSize: 16,
     fontFamily: "Montserrat",
     fontWeight: "700",
@@ -258,7 +256,7 @@ const styles = StyleSheet.create({
   descriptioncaniones: {
     backgroundColor: "#0D2A67",
     color: "white",
-    padding: "8%",
+    padding: "9%",
     fontSize: 16,
     fontFamily: "Montserrat",
     fontWeight: "700",

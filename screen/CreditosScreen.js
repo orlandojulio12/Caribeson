@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Linking, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Asegúrate de tener instalado @expo/vector-icons
+import { FontAwesome } from '@expo/vector-icons';
 
 const CreditsScreen = () => {
   const openLink = (url) => {
@@ -8,51 +8,69 @@ const CreditsScreen = () => {
   };
 
   return (
-<ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Image
         source={require('../assets/logocaribe.png')} // Cambia a la ruta correcta de tu logo
         style={styles.logo}
       />
-      <Text style={styles.sectionTitle}>Investigación y construcción narrativa:</Text>
-      <Text style={styles.text}>Angela Marín Niebles</Text>
-      <Text style={styles.text}>Grupo de investigación Sapiencia Arte y Música</Text>
-      <Text style={styles.text}>Facultad de Bellas Artes</Text>
-      <Text style={styles.text}>Barranquilla</Text>
 
-      <Text style={styles.sectionTitle}>Colaboradores:</Text>
-      <Text style={styles.text}>Andrea Trujillo Sarmiento</Text>
-      <Text style={styles.text}>Manuel Camargo Pérez</Text>
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Investigación y construcción narrativa:</Text>
+        <Text style={styles.text}>Angela Marín Niebles</Text>
+        <Text style={styles.text}>Grupo de investigación Sapiencia Arte y Música</Text>
+        <Text style={styles.text}>Facultad de Bellas Artes</Text>
+        <Text style={styles.text}>Barranquilla</Text>
+      </View>
 
-      <Text style={styles.sectionTitle}>Desarrollado por:</Text>
-      <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://github.com/orlandojulio12')}>
-        <FontAwesome name="github" size={24} color="#1e90ff" style={styles.icon} />
-        <Text style={styles.linkText}>Orlando Jr Julio</Text>
-      </TouchableOpacity>
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Experto en Tecnologías Virtuales:</Text>
+        <Text style={styles.sectionTitle}>Tecnoparque Atlántico</Text>
+        <Text style={styles.text}>Alexander Donado Molinares</Text>
+      </View>
 
-      <Text style={styles.sectionTitle}>Diseño:</Text>
-      <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://www.behance.net/gallery/195593555/portfolio')}>
-        <FontAwesome name="folder-open" size={24} color="#1e90ff" style={styles.icon} />
-        <Text style={styles.linkText}>Masiel Rueda</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://www.behance.net/gallery/201517549/portfolio')}>
-        <FontAwesome name="folder-open" size={24} color="#1e90ff" style={styles.icon} />
-        <Text style={styles.linkText}>Saray Martínez</Text>
-      </TouchableOpacity>
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Colaboradores:</Text>
+        <Text style={styles.text}>Andrea Trujillo Sarmiento</Text>
+        <Text style={styles.text}>Manuel Camargo Pérez</Text>
+      </View>
 
-      <Text style={styles.sectionTitle}>Colaboradores en Desarrollo:</Text>
-      <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://github.com/Josetapia23')}>
-        <FontAwesome name="github" size={24} color="#1e90ff" style={styles.icon} />
-        <Text style={styles.linkText}>Jose Tapia</Text>
-      </TouchableOpacity>
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Desarrollado por:</Text>
+        <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://github.com/orlandojulio12')}>
+          <FontAwesome name="github" size={24} color="#1e90ff" style={styles.icon} />
+          <Text style={styles.linkText}>Orlando Jr Julio</Text>
+        </TouchableOpacity>
+      </View>
 
-      <Text style={styles.sectionTitle}>Tecnologías Utilizadas:</Text>
-      <Text style={styles.text}>React Native</Text>
-      <Text style={styles.text}>Expo</Text>
-      <Text style={styles.text}>PHP</Text>
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Diseño:</Text>
+        <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://www.behance.net/gallery/195593555/portfolio')}>
+          <FontAwesome name="folder-open" size={24} color="#1e90ff" style={styles.icon} />
+          <Text style={styles.linkText}>Masiel Rueda</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://www.behance.net/gallery/201517549/portfolio')}>
+          <FontAwesome name="folder-open" size={24} color="#1e90ff" style={styles.icon} />
+          <Text style={styles.linkText}>Saray Martínez</Text>
+        </TouchableOpacity>
+      </View>
 
-      {/* Copyright al final */}
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Colaboradores en Desarrollo:</Text>
+        <TouchableOpacity style={styles.linkContainer} onPress={() => openLink('https://github.com/Josetapia23')}>
+          <FontAwesome name="github" size={24} color="#1e90ff" style={styles.icon} />
+          <Text style={styles.linkText}>Jose Tapia</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.sectionTitle}>Tecnologías Utilizadas:</Text>
+        <Text style={styles.text}>React Native</Text>
+        <Text style={styles.text}>Expo</Text>
+        <Text style={styles.text}>PHP</Text>
+      </View>
+
       <Text style={styles.footerText}>
-        © 2024 Universidad del Atlántico,Vicerrectoría de Investigaciones, Extensión y Proyección Social.
+        © 2024 Universidad del Atlántico, Vicerrectoría de Investigaciones, Extensión y Proyección Social.
       </Text>
     </ScrollView>
   );
@@ -70,15 +88,34 @@ const styles = StyleSheet.create({
     height: 100,
     marginBottom: 20,
   },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    marginVertical: 10,
+    width: '100%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3, // Para Android
+  },
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 20,
     marginBottom: 10,
     textAlign: 'center',
+    color: '#2c3e50',
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#34495e',
+    marginBottom: 5,
   },
   linkContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 5,
   },
@@ -87,13 +124,8 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 16,
-    color: '#000', // Cambiado a negro para evitar el color azul
-    textDecorationLine: 'none', // Elimina el subrayado
-  },
-  text: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 5,
+    color: '#1e90ff',
+    textDecorationLine: 'underline',
   },
   footerText: {
     fontSize: 14,

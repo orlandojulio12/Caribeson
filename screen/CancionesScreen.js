@@ -25,7 +25,7 @@ const MusicPlayer = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch('https://www.caribeson.com/CONEXION/getCanciones.php')
+    fetch('http://192.168.1.119/CONEXION/getCanciones.php')
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -46,7 +46,7 @@ const MusicPlayer = () => {
   };
 
   const handlePress = (song) => {
-    navigation.navigate('VideoFromYouTube', { youtubeLink: song.link, title: song.title });
+    navigation.navigate('VideoFromYouTube', { youtubeLink: song.link, title: song.title,songId:song.id });
   };
 
   const numPages = Math.ceil(filteredSongs.length / songsPerPage);
