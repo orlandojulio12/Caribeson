@@ -38,7 +38,7 @@ export default function LoginScreen() {
   
     try {
       const response = await axios.post(
-        "http://192.168.1.119/CONEXION/login.php",
+        "https://caribeson.com/CONEXION/login.php",
         {
           email: email,
           password: password,

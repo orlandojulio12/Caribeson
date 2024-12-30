@@ -10,13 +10,14 @@ const DetailScreen = ({ route }) => {
 
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
+  console.log("el id del dato curiosos:",item.id_dato)
 
   useEffect(() => {
     if (userId && item.id_dato) {
       // Verificar si el usuario ha dado "Me gusta" al dato curioso
       const checkLikeStatus = async () => {
         try {
-          const response = await fetch(`http://192.168.1.119/CONEXION/likes_check.php?usuario_id=${userId}&content_type=dato_curioso&content_id=${item.id_dato}`);
+          const response = await fetch(`https://caribeson.com/CONEXION/likes_check.php?usuario_id=${userId}&content_type=dato_curioso&content_id=${item.id_dato}`);
           const data = await response.json();
           setLiked(data.liked);
         } catch (error) {
@@ -27,7 +28,7 @@ const DetailScreen = ({ route }) => {
       // Obtener el conteo de "Me gusta" del dato curioso
       const fetchLikesCount = async () => {
         try {
-          const response = await fetch(`http://192.168.1.119/CONEXION/likes_count.php?content_type=dato_curioso&content_id=${item.id_dato}`);
+          const response = await fetch(`https://caribeson.com/CONEXION/likes_count.php?content_type=dato_curioso&content_id=${item.id_dato}`);
           const data = await response.json();
           setLikesCount(data.count);
         } catch (error) {
@@ -51,7 +52,7 @@ const DetailScreen = ({ route }) => {
     }
 
     const method = liked ? 'DELETE' : 'POST';
-    const url = 'http://192.168.1.119/CONEXION/likes.php';
+    const url = 'https://caribeson.com/CONEXION/likes.php';
 
     try {
       const response = await fetch(url, {

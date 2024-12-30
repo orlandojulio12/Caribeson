@@ -26,7 +26,7 @@ const ArtistsScreen = () => {
     const fetchArtists = async () => {
       try {
         const response = await fetch(
-          "http://192.168.1.119/CONEXION/getArtistas.php"
+          "https://caribeson.com/CONEXION/getArtistas.php"
         );
         if (!response.ok) {
           throw new Error("Error al obtener los datos de artistas");

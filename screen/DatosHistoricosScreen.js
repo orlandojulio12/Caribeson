@@ -24,7 +24,7 @@ const HomeScreen = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.1.119/CONEXION/getDatoCurioso.php"
+          "https://caribeson.com/CONEXION/getDatoCurioso.php"
         );
         const result = await response.json();
         setDataCuriosa(result);
@@ -68,7 +68,7 @@ const HomeScreen = () => {
             <Image source={{ uri: item.foto }} style={styles.image} />
           )}
           <View style={styles.textContainer}>
-            <Text style={styles.title}>{item.titulo}</Text>
+            <Text style={styles.title}>{item.titulo }</Text>
             <Text style={styles.description}>
               {item.dato_curioso.length > 100
                 ? `${item.dato_curioso.substring(0, 100)}...`

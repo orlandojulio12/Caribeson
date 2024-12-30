@@ -32,7 +32,7 @@ const VideoFromYouTube = ({ route }) => {
       // Verificar si el usuario ha dado "Me gusta" a la canción
       const checkLikeStatus = async () => {
         try {
-          const response = await fetch(`http://192.168.1.119/CONEXION/likes_check.php?usuario_id=${userId}&content_type=cancion&content_id=${songId}`);
+          const response = await fetch(`https://caribeson.com/CONEXION/likes_check.php?usuario_id=${userId}&content_type=cancion&content_id=${songId}`);
           const data = await response.json();
           setLiked(data.liked);
         } catch (error) {
@@ -43,7 +43,7 @@ const VideoFromYouTube = ({ route }) => {
       // Obtener el conteo de "Me gusta" de la canción
       const fetchLikesCount = async () => {
         try {
-          const response = await fetch(`http://192.168.1.119/CONEXION/likes_count.php?content_type=cancion&content_id=${songId}`);
+          const response = await fetch(`https://caribeson.com/CONEXION/likes_count.php?content_type=cancion&content_id=${songId}`);
           const data = await response.json();
           setLikesCount(data.count);
         } catch (error) {
@@ -64,7 +64,7 @@ const VideoFromYouTube = ({ route }) => {
     }
 
     const method = liked ? 'DELETE' : 'POST';
-    const url = 'http://192.168.1.119/CONEXION/likes.php';
+    const url = 'https://caribeson.com/CONEXION/likes.php';
 
     try {
       const response = await fetch(url, {

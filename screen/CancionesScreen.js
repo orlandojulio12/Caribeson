@@ -25,7 +25,7 @@ const MusicPlayer = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch('http://192.168.1.119/CONEXION/getCanciones.php')
+    fetch('https://caribeson.com/CONEXION/getCanciones.php')
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
